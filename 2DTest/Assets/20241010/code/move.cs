@@ -14,7 +14,7 @@ using UnityEngine;
 public class move : MonoBehaviour
 {
   public float speed = 5f;  // 이동 속도
-    private Rigidbody2D rb;
+    [SerializeField] Rigidbody2D rb;
     private Vector2 movement;
 
     public float Speed
@@ -23,21 +23,29 @@ public class move : MonoBehaviour
         set { speed = value; } 
     }
 
+//#-------------------------
+// 추가 날짜 : 2024.10.30
+    public Vector2 Movement
+    {
+        get { return movement; } 
+    }
+//#---------------------------
+
+
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();  // Rigidbody2D 컴포넌트 가져오기
+        rb = GetComponent<Rigidbody2D>(); 
     }
 
     private void Update()
     {
         // 입력 받기 (WASD 또는 화살표 키)
-        movement.x = Input.GetAxisRaw("Horizontal");  // 왼쪽(-1), 오른쪽(1)
-        movement.y = Input.GetAxisRaw("Vertical");    // 아래(-1), 위(1)
+        movement.x = Input.GetAxisRaw("Horizontal"); 
+        movement.y = Input.GetAxisRaw("Vertical"); 
     }
 
     private void FixedUpdate()
     {
-        // Rigidbody2D를 사용하여 이동 처리
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
     }
 }
