@@ -1,9 +1,9 @@
 /*
 # ----------------------------------------------------------------------------------------
-#파일이름 : ShurikenManager.cs
+#파일이름 :Boxing.cs
 #작성자 : 장승배
-#생성일 : 2024.11.04
-#내용 : A/D 버튼을 누르면 오브젝트가 날아가는 코드(수리검 날리는 코드)
+#생성일 : 2024.11.06
+#내용 : 주먹을 플레이어 방향으로 이동시키며, 주먹을 날린 횟수를 측정한다.
 # ------------------------------------------------------------------------------------------
 */
 
@@ -11,10 +11,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShurikenManager : MonoBehaviour
+public class Boxing : MonoBehaviour
 {
     [SerializeField] Transform player;
-    [SerializeField] float speed = 100f;
+    [SerializeField] float speed = 10f;
     [SerializeField] float respawnTime = 5f;
 
     [SerializeField] bool activate = true;  
@@ -22,13 +22,15 @@ public class ShurikenManager : MonoBehaviour
     private float time;
     private float moveX2 = 0; 
 
-    
-    
+    [SerializeField] int fistCount = 0;   
+
+    public int FistCount
+    {
+        get { return fistCount; }   
+    }
     
     private void Start() 
     {
-        
-
         Vector3 playerPosition = player.position;
         transform.position = playerPosition;
     }
@@ -44,7 +46,7 @@ public class ShurikenManager : MonoBehaviour
                 float moveX = Input.GetAxis("Horizontal");  
                 moveX2 = moveX; 
                 activate = false; 
-                
+                fistCount++;
             }
 
             if(moveX2 == 0)
@@ -63,8 +65,5 @@ public class ShurikenManager : MonoBehaviour
             time = 0; 
             activate = true;
         }
-
-
-        
     }
 }
